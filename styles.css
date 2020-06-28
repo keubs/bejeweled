@@ -1,0 +1,27 @@
+.cell {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+}
+
+.onyx {
+    background-color: black;
+}
+.diamond {
+    background-color: pink;
+}
+.sapphire {
+    background-color: blue;
+}
+.ruby {
+    background-color: red;
+}
+.opal {
+    background-color: green;
+}
+.amethyst {
+    background-color: purple;
+}
+.topaz {
+    background-color: orange;
+}
