@@ -5,7 +5,14 @@
 
             window.onload = function() {
                 g = new Game(10, 10);
-                console.log(g);
+                a = new ui(g);
+                a.render()
+            }
+
+            function rerender(){
+                let rows = document.getElementById('rows').value;
+                let cols = document.getElementById('cols').value;
+                g = new Game(rows, cols);
                 a = new ui(g);
                 a.render()
             }
@@ -13,6 +20,12 @@
         <link rel="stylesheet" href="styles.css" type="text/css" />
     </head>
     <body>
+        <div id="board"></div>
 
+        <button class="rerender" onclick="rerender()">New board</button>
+        <label for="rows">Rows</label>
+        <input type="number" id="rows" value="8" />
+        <label for="cols">Cols</label>
+        <input type="number" id="cols" value="9" />
     </body>
 </html>

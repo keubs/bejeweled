@@ -1,3 +1,17 @@
+button {
+    width: 200px;
+    font-size: 22px;
+    background: #501;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    height: 40px;
+}
+
+#legend {
+    padding: 20px;
+}
+
 .cell {
     width: 100px;
     height: 100px;

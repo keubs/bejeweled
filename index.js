@@ -1,3 +1,8 @@
+/**
+ * Game class takes two (optional) constructor arguments: rows/cols
+ * initialized as a 2d array multiple rows within a column, to allow
+ * easier computation of removal of a 'jewel''s falling effect when cleared
+ */
 class Game {
     jewels = [
         'diamond',
@@ -32,6 +37,7 @@ class ui {
         for(let i = 0; i < this.game.cols.length; i++){
             const col = document.createElement('div');
             col.setAttribute('class', 'col');
+            
             for(let j = 0; j < this.game.cols[i].length; j++){
                 const row = document.createElement('div');
                 row.setAttribute('class', `cell ${this.game.cols[i][j]}`);
@@ -39,7 +45,7 @@ class ui {
             }
             board.appendChild(col);
         }
-
-        document.body.appendChild(board);
+        document.getElementById('board').innerHTML = '';
+        document.getElementById('board').appendChild(board);
     }
 }
