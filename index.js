@@ -14,13 +14,67 @@ class Game {
         'onyx',
     ];
 
+    all() {
+        const len = arguments.length;
+        for (let i = 1; i< len; i++){
+            if (arguments[i] === null || arguments[i] !== arguments[i-1])
+                return false;
+        }
+        return true;
+    }
+
+    check(jewel, next, skip ) {
+        // return if there aren't adjacent jewels to check against
+        if(!next || !skip) return jewel;
+
+        // if all three are the same, loop through generating a random jewel until they aren't
+        while((this.all(jewel, next, skip))) {
+            jewel = this.generateJewel();
+        }
+        return jewel;
+    }
+
+    generateJewel() {
+        return this.jewels[Math.floor(Math.random() * this.jewels.length)];
+    }
+
+
     constructor(rows, cols) {
         this.rowcount = rows || 8;
         this.colcount = cols || 9;
         this.cols = [];
         
         for(let i = 0; i < this.rowcount; i++) {
-            this.cols.push(Array.from(({length: this.colcount}), () => this.jewels[Math.floor(Math.random() * this.jewels.length)]));
+            const col = [];
+            for (let j = 0; j < this.rowcount; j++) {
+                let jewel = this.generateJewel();
+                // determine previous and 2nd previous jewels in column
+                const next = col[j-1] ? col[j-1] : undefined;
+                const skip = col[j-1] ? col[j-2] : undefined;
+
+                // determine previous and 2nd previous jewels in a row
+                let adjacent, nextAdjacent;
+                if (i === 0) {
+                    adjacent = undefined;
+                    nextAdjacent = undefined;
+                } else {
+                    adjacent = -1;
+                    nextAdjacent = -2;
+                }
+                
+                // check for 3 adjacent jewels in a column, replace if so
+                jewel = this.check(jewel, next, skip);
+                
+                if(this.cols[i+adjacent] && this.cols[i+nextAdjacent]){
+                    // check for 3 adjacent jewels in a row, replace if so
+                    jewel = this.check(jewel, this.cols[i+adjacent][j], this.cols[i+nextAdjacent][j])
+                    jewel = this.check(jewel, next, skip);
+                    col.push(jewel);
+                }
+                else col.push(jewel);
+                
+            }
+            this.cols.push(col);
         }
     }
 }

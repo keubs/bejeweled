@@ -18,6 +18,10 @@ button {
     display: inline-block;
 }
 
+.col {
+    width: 100px; display: inline-block;
+}
+
 .onyx {
     background-color: black;
 }
