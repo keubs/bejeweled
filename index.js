@@ -68,6 +68,8 @@ class Game {
                 if(this.cols[i+adjacent] && this.cols[i+nextAdjacent]){
                     // check for 3 adjacent jewels in a row, replace if so
                     jewel = this.check(jewel, this.cols[i+adjacent][j], this.cols[i+nextAdjacent][j])
+
+                    // Recheck column
                     jewel = this.check(jewel, next, skip);
                     col.push(jewel);
                 }
