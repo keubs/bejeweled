@@ -49,28 +49,25 @@ class Game {
             for (let j = 0; j < this.rowcount; j++) {
                 let jewel = this.generateJewel();
                 // determine previous and 2nd previous jewels in column
-                const next = col[j-1] ? col[j-1] : undefined;
-                const skip = col[j-1] ? col[j-2] : undefined;
+                const nextRow = col[j-1] ? col[j-1] : undefined;
+                const skipRow = col[j-1] ? col[j-2] : undefined;
 
-                // determine previous and 2nd previous jewels in a row
-                let adjacent, nextAdjacent;
-                if (i === 0) {
-                    adjacent = undefined;
-                    nextAdjacent = undefined;
-                } else {
-                    adjacent = -1;
-                    nextAdjacent = -2;
+                // determine previous and 2nd previous jewels in a row, but only when there's enoug
+                let adjacentCol, nextAdjacentCol;
+                if (i !== 0) {
+                    adjacentCol = -1;
+                    nextAdjacentCol = -2;
                 }
                 
-                // check for 3 adjacent jewels in a column, replace if so
-                jewel = this.check(jewel, next, skip);
+                // check for 3 adjacent identical jewels in a column, replace if so
+                jewel = this.check(jewel, nextRow, skipRow);
                 
-                if(this.cols[i+adjacent] && this.cols[i+nextAdjacent]){
-                    // check for 3 adjacent jewels in a row, replace if so
-                    jewel = this.check(jewel, this.cols[i+adjacent][j], this.cols[i+nextAdjacent][j])
+                if(this.cols[i+adjacentCol] && this.cols[i+nextAdjacentCol]) {
+                    // check for 3 adjacent identical jewels in a row, replace if so
+                    jewel = this.check(jewel, this.cols[i+adjacentCol][j], this.cols[i+nextAdjacentCol][j])
 
-                    // Recheck column
-                    jewel = this.check(jewel, next, skip);
+                    // Recheck column to ensure it's still 
+                    jewel = this.check(jewel, nextRow, skipRow);
                     col.push(jewel);
                 }
                 else col.push(jewel);
